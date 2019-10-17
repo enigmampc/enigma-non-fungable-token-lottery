@@ -1,4 +1,4 @@
-# Enigma - Non Fungable Token Lottery
+# Enigma - Non Fungible Token Lottery
 
 ## About
 
