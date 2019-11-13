@@ -2,10 +2,13 @@
   "name": "enigma-non-fungable-token-lottery",
   "version": "1.0.0",
   "description": "Private & Anonymous ERC721 Lottery",
+  "directories": {
+    "test": "test"
+  },
   "dependencies": {
     "@openzeppelin/contracts": "^2.3.0",
     "dotenv": "^8.0.0",
-    "enigma-js": "^0.0.8"
+    "enigma-js": "^0.3.0"
   },
   "devDependencies": {
     "truffle": "^5.0.39"

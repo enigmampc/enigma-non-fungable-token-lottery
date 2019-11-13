@@ -1,27 +1,24 @@
-const fs = require("fs");
-const Web3 = require("web3");
-const { Enigma, utils, eeConstants } = require("enigma-js/node");
-const DepositContract = artifacts.require("Deposit");
-const NFTContract = artifacts.require("NFT");
+const fs = require('fs');
+const Web3 = require('web3');
+const { Enigma, utils, eeConstants } = require('enigma-js/node');
+const DepositContract = artifacts.require('Deposit');
+const NFTContract = artifacts.require('NFT');
 
 const provider = new Web3.providers.HttpProvider("http://localhost:9545");
 const web3 = new Web3(provider);
 
 var EnigmaContract;
-if (
-  typeof process.env.SGX_MODE === "undefined" ||
-  (process.env.SGX_MODE != "SW" && process.env.SGX_MODE != "HW")
-) {
+if (typeof process.env.SGX_MODE === 'undefined' || (process.env.SGX_MODE != 'SW' && process.env.SGX_MODE != 'HW')) {
   console.log(`Error reading ".env" file, aborting....`);
   process.exit();
-} else if (process.env.SGX_MODE == "SW") {
-  EnigmaContract = require("../build/enigma_contracts/EnigmaSimulation.json");
+} else if (process.env.SGX_MODE == 'SW') {
+  EnigmaContract = require('../build/enigma_contracts/EnigmaSimulation.json');
 } else {
-  EnigmaContract = require("../build/enigma_contracts/Enigma.json");
+  EnigmaContract = require('../build/enigma_contracts/Enigma.json');
 }
-const EnigmaTokenContract = require("../build/enigma_contracts/EnigmaToken.json");
+const EnigmaTokenContract = require('../build/enigma_contracts/EnigmaToken.json');
 
-// promisified timeout
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -107,7 +104,7 @@ contract("lottery", accounts => {
       web3,
       enigmaAddr,
       EnigmaTokenContract.networks["4447"].address,
-      "http://localhost:3346",
+      "http://localhost:3333",
       {
         gas: 4712388,
         gasPrice: 100000000000,
@@ -115,6 +112,7 @@ contract("lottery", accounts => {
       }
     );
     enigma.admin();
+    enigma.setTaskKeyPair('cupcake');
 
     // get secret contract address
     secretContractAddr = fs.readFileSync("test/lottery.txt", "utf-8");
